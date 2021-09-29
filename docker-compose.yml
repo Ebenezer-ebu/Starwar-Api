@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:13.3-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_DB: "starwars"
+
+    healthcheck:
+      interval: 10s
+      retries: 3
+      timeout: 2s
+      test:
+        ["/usr/bin/pg_isready", "-U", "postgres", "--silent", "-d", "postgres"]
